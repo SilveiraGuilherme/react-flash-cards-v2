@@ -27,18 +27,18 @@ react-flash-cards-v2 - roteiro
       com useEffect. Mostrar com promises, async/await 
       e IIFE
 
-   () Incluir state para "loading"
-   () Incluir state para "error"
+   (x) Incluir state para "loading"
+   (x) Incluir state para "error"
 
-() Instalar e utilizar o componente react-tabs 
+(x) Instalar e utilizar o componente react-tabs 
    https://github.com/reactjs/react-tabs
 
-() Criar 3 abas
+(x) Criar 3 abas
    - Listagem
    - Cadastro 
    - Estudo
 
-() Migrar o que já foi implementado para a aba "Estudo"
+(x) Migrar o que já foi implementado para a aba "Estudo"
 
 () Em "Listagem", mostrar todos os cards com opção 
    de exclusão e edição. Criar componente FlashCardItem
