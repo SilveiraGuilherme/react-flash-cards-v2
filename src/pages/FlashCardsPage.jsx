@@ -14,12 +14,17 @@ import Error from '../components/Error';
 import { helperShuffleArray } from '../helpers/arrayHelpers';
 import { getAllFlashCards } from '../services/apiService';
 import FlashCardItem from '../components/FlashCardItem';
+import FlashCardForm from '../components/FlashCardForm';
 
 export default function FlashCardsPage() {
   const [allCards, setAllCards] = useState([]);
   const [studyCards, setStudyCards] = useState([]);
   const [loading, setLoading] = useState([true]);
   const [error, setError] = useState('');
+  const [createMode, setCreateMode] = useState(true);
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedFlashCard, setSelectedFlashCard] = useState(null);
+
   const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
 
   useEffect(() => {
@@ -77,7 +82,17 @@ export default function FlashCardsPage() {
   }
 
   function handleDeleteFlashCard(cardId) {
-    return console.log(cardId);
+    setAllCards(allCards.filter(card => card.id !== cardId));
+  }
+
+  function handleEditFlashCard(card) {
+    setCreateMode(false);
+    setSelectedTab(1);
+    setSelectedFlashCard(card);
+  }
+
+  function handleTabSelection(tabIndex) {
+    setSelectedTab(tabIndex);
   }
 
   let mainJsx = (
@@ -93,7 +108,7 @@ export default function FlashCardsPage() {
   if (!loading) {
     mainJsx = (
       <>
-        <Tabs>
+        <Tabs selectedIndex={selectedTab} onSelect={handleTabSelection}>
           <TabList>
             <Tab>Listing</Tab>
             <Tab>Registration</Tab>
@@ -106,6 +121,7 @@ export default function FlashCardsPage() {
                 <FlashCardItem
                   key={flashCard.id}
                   onDelete={handleDeleteFlashCard}
+                  onEdit={handleEditFlashCard}
                 >
                   {flashCard}
                 </FlashCardItem>
@@ -114,7 +130,7 @@ export default function FlashCardsPage() {
           </TabPanel>
 
           <TabPanel>
-            <div>Registration</div>
+            <FlashCardForm createMode={createMode} />
           </TabPanel>
 
           <TabPanel>

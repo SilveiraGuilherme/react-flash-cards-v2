@@ -40,7 +40,7 @@ react-flash-cards-v2 - roteiro
 
 (x) Migrar o que já foi implementado para a aba "Estudo"
 
-() Em "Listagem", mostrar todos os cards com opção 
+(x) Em "Listagem", mostrar todos os cards com opção 
    de exclusão e edição. Criar componente FlashCardItem
    para tal. Implementar exclusão no Front End, por 
    enquanto

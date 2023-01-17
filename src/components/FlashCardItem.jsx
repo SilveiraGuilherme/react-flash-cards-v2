@@ -7,9 +7,15 @@ export default function FlashCardItem({
   onEdit = null,
 }) {
   const { title, description } = flashCard;
+
   function handleDeleteIconClick() {
     if (onDelete) {
       onDelete(flashCard.id);
+    }
+  }
+  function handleEditIconClick() {
+    if (onEdit) {
+      onEdit(flashCard);
     }
   }
 
@@ -24,7 +30,11 @@ export default function FlashCardItem({
         </li>
       </ul>
       <div className="mt-4 flex justify-end items-center space-x-4">
-        <EditIcon className="cursor-pointer" size={24} />
+        <EditIcon
+          className="cursor-pointer"
+          size={24}
+          onClick={handleEditIconClick}
+        />
         <DeleteIcon
           className="cursor-pointer"
           size={24}
