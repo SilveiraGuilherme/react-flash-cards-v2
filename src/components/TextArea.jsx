@@ -6,7 +6,7 @@ export default function TextArea({
   id = getNewId(),
   onTextAreaChange = null,
   maxLength = 230,
-  rows = 4,
+  rows = 5,
 }) {
   function handleTextAreaChange({ currentTarget }) {
     if (onTextAreaChange) {
@@ -14,6 +14,9 @@ export default function TextArea({
       onTextAreaChange(newValue);
     }
   }
+
+  const currentCharacterCount = textAreaValue.length;
+
   return (
     <div className="flex flex-col my-4">
       <label htmlFor="inputText" className="mb-1 text-sm">
@@ -27,6 +30,7 @@ export default function TextArea({
         rows={rows}
         onChange={handleTextAreaChange}
       ></textarea>
+      <div className="text-right mr-1">{`${currentCharacterCount} / ${maxLength}`}</div>
     </div>
   );
 }
