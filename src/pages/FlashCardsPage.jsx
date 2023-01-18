@@ -15,6 +15,7 @@ import { helperShuffleArray } from '../helpers/arrayHelpers';
 import { getAllFlashCards } from '../services/apiService';
 import FlashCardItem from '../components/FlashCardItem';
 import FlashCardForm from '../components/FlashCardForm';
+import { getNewId } from '../services/idService';
 
 export default function FlashCardsPage() {
   const [allCards, setAllCards] = useState([]);
@@ -100,8 +101,10 @@ export default function FlashCardsPage() {
     setSelectedTab(tabIndex);
   }
 
-  function handlePersist(createMode, title, description) {
-    createMode ? console.log('insert') : console.log('edit');
+  function handlePersist(title, description) {
+    createMode
+      ? setAllCards([...allCards, { id: getNewId(), title, description }])
+      : console.log('edit');
   }
 
   let mainJsx = (
@@ -142,7 +145,9 @@ export default function FlashCardsPage() {
             <div className="my-4">
               <Button onButtonClick={handleNewFlashCard}>New Flash Card</Button>
             </div>
-            <FlashCardForm createMode={createMode} onPersist={handlePersist} />
+            <FlashCardForm createMode={createMode} onPersist={handlePersist}>
+              {selectedFlashCard}
+            </FlashCardForm>
           </TabPanel>
 
           <TabPanel>
