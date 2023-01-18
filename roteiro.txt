@@ -45,16 +45,16 @@ react-flash-cards-v2 - roteiro
    para tal. Implementar exclusão no Front End, por 
    enquanto
 
-() Criar state para definir o modo de operação 
+(x) Criar state para definir o modo de operação 
    (edição/inserção)   
 
-() Fazer com que o clique nos ícones de edição da 
+(x) Fazer com que o clique nos ícones de edição da 
    listagem ativem a edição do flash card 
    automaticamente. Criar state para isso 
    e utilizar as props selectedIndex e 
    onSelect de react-tabs
 
-() Em "Cadastro", criar botão para ativar 
+(x) Em "Cadastro", criar botão para ativar 
    a inserção de novos flash cards
 
 () Em "Cadastro", criar componente Form e montar 

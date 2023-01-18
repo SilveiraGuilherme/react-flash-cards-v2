@@ -91,6 +91,11 @@ export default function FlashCardsPage() {
     setSelectedFlashCard(card);
   }
 
+  function handleNewFlashCard() {
+    setCreateMode(true);
+    setSelectedFlashCard(null);
+  }
+
   function handleTabSelection(tabIndex) {
     setSelectedTab(tabIndex);
   }
@@ -130,6 +135,9 @@ export default function FlashCardsPage() {
           </TabPanel>
 
           <TabPanel>
+            <div className="my-4">
+              <Button onButtonClick={handleNewFlashCard}>New Flash Card</Button>
+            </div>
             <FlashCardForm createMode={createMode} />
           </TabPanel>
 
