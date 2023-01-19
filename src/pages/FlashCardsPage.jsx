@@ -12,10 +12,13 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 
 import { helperShuffleArray } from '../helpers/arrayHelpers';
-import { apiDeleteFlashCard, getAllFlashCards } from '../services/apiService';
+import {
+  apiCreateFlashCard,
+  apiDeleteFlashCard,
+  getAllFlashCards,
+} from '../services/apiService';
 import FlashCardItem from '../components/FlashCardItem';
 import FlashCardForm from '../components/FlashCardForm';
-import { getNewId } from '../services/idService';
 
 export default function FlashCardsPage() {
   const [allCards, setAllCards] = useState([]);
@@ -88,6 +91,8 @@ export default function FlashCardsPage() {
       await apiDeleteFlashCard(cardId);
       //Frontend
       setAllCards(allCards.filter(card => card.id !== cardId));
+
+      setError('');
     } catch (error) {
       setError(error.message);
     }
@@ -108,9 +113,17 @@ export default function FlashCardsPage() {
     setSelectedTab(tabIndex);
   }
 
-  function handlePersist(title, description) {
+  async function handlePersist(title, description) {
     if (createMode) {
-      setAllCards([...allCards, { id: getNewId(), title, description }]);
+      try {
+        //Backend
+        const newFlashCard = await apiCreateFlashCard(title, description);
+
+        //Frontend
+        setAllCards([...allCards, newFlashCard]);
+      } catch (error) {
+        setError(error.message);
+      }
     } else {
       setAllCards(
         allCards.map(card => {
