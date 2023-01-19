@@ -1,8 +1,10 @@
-import { get } from './httpService';
-
-const backEndUrl = 'http://localhost:3001/flashcards';
+import { exclude, read } from './httpService';
 
 export async function getAllFlashCards() {
-  const allFlashCards = await get(backEndUrl);
+  const allFlashCards = await read('/flashcards');
   return allFlashCards;
+}
+
+export async function apiDeleteFlashCard(cardId) {
+  await exclude(`/flashcards/${cardId}`);
 }

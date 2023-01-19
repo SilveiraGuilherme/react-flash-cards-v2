@@ -57,14 +57,14 @@ react-flash-cards-v2 - roteiro
 (x) Em "Cadastro", criar botão para ativar 
    a inserção de novos flash cards
 
-() Em "Cadastro", criar componente Form e montar 
+(x) Em "Cadastro", criar componente Form e montar 
    formulário para inserção/edição de cards, 
    reaproveitando o componente TextInput
 
-() Criar componente TextArea para melhorar o 
+(x) Criar componente TextArea para melhorar o 
    cadastro da descrição do FlashCard
 
-() Criar botões "Salvar" e "Limpar", 
+(x) Criar botões "Salvar" e "Limpar", 
    para persistir a inserção/edição 
    através de onSubmit do form. 
    Mostrar que, no form, quando 

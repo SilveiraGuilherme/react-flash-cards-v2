@@ -12,7 +12,7 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 
 import { helperShuffleArray } from '../helpers/arrayHelpers';
-import { getAllFlashCards } from '../services/apiService';
+import { apiDeleteFlashCard, getAllFlashCards } from '../services/apiService';
 import FlashCardItem from '../components/FlashCardItem';
 import FlashCardForm from '../components/FlashCardForm';
 import { getNewId } from '../services/idService';
@@ -82,8 +82,15 @@ export default function FlashCardsPage() {
     setStudyCards(updatedCards);
   }
 
-  function handleDeleteFlashCard(cardId) {
-    setAllCards(allCards.filter(card => card.id !== cardId));
+  async function handleDeleteFlashCard(cardId) {
+    try {
+      //Backend
+      await apiDeleteFlashCard(cardId);
+      //Frontend
+      setAllCards(allCards.filter(card => card.id !== cardId));
+    } catch (error) {
+      setError(error.message);
+    }
   }
 
   function handleEditFlashCard(card) {
@@ -102,9 +109,20 @@ export default function FlashCardsPage() {
   }
 
   function handlePersist(title, description) {
-    createMode
-      ? setAllCards([...allCards, { id: getNewId(), title, description }])
-      : console.log('edit');
+    if (createMode) {
+      setAllCards([...allCards, { id: getNewId(), title, description }]);
+    } else {
+      setAllCards(
+        allCards.map(card => {
+          if (card.id === selectedFlashCard.id) {
+            return { ...card, title, description };
+          }
+          return card;
+        })
+      );
+      setSelectedFlashCard(null);
+      setCreateMode(true);
+    }
   }
 
   let mainJsx = (
@@ -117,7 +135,7 @@ export default function FlashCardsPage() {
     mainJsx = <Error>{error}</Error>;
   }
 
-  if (!loading) {
+  if (!loading && !error) {
     mainJsx = (
       <>
         <Tabs selectedIndex={selectedTab} onSelect={handleTabSelection}>
