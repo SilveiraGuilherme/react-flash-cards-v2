@@ -15,6 +15,7 @@ import { helperShuffleArray } from '../helpers/arrayHelpers';
 import {
   apiCreateFlashCard,
   apiDeleteFlashCard,
+  apiUpdateFlashCard,
   getAllFlashCards,
 } from '../services/apiService';
 import FlashCardItem from '../components/FlashCardItem';
@@ -125,16 +126,25 @@ export default function FlashCardsPage() {
         setError(error.message);
       }
     } else {
-      setAllCards(
-        allCards.map(card => {
-          if (card.id === selectedFlashCard.id) {
-            return { ...card, title, description };
-          }
-          return card;
-        })
-      );
-      setSelectedFlashCard(null);
-      setCreateMode(true);
+      try {
+        //Backend
+        await apiUpdateFlashCard(selectedFlashCard.id, title, description);
+
+        //Frontend
+        setAllCards(
+          allCards.map(card => {
+            if (card.id === selectedFlashCard.id) {
+              return { ...card, title, description };
+            }
+            return card;
+          })
+        );
+        setSelectedFlashCard(null);
+        setCreateMode(true);
+        setError('');
+      } catch (error) {
+        setError(error.message);
+      }
     }
   }
 

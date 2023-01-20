@@ -1,4 +1,4 @@
-import { create, exclude, read } from './httpService';
+import { create, edit, exclude, read } from './httpService';
 import { getNewId } from './idService';
 
 export async function getAllFlashCards() {
@@ -17,4 +17,12 @@ export async function apiCreateFlashCard(title, description) {
     description,
   });
   return newFlashCard;
+}
+
+export async function apiUpdateFlashCard(cardId, title, description) {
+  const updatedFlashCard = await edit(`/flashcards/${cardId}`, {
+    title,
+    description,
+  });
+  return updatedFlashCard;
 }
